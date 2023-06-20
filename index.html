@@ -1,0 +1,157 @@
+
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Google Form</title>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    form {
+      display: inline-block;
+      text-align: left;
+    }
+
+    label {
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: block;
+      font-weight: bold;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    .radio-button-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .radio-button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      border: 2px solid #000;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      text-align: center;
+      background-color: #E8F6FF;
+    }
+
+    .radio-button.selected {
+  background-color: #B3D7FF;
+  transform: translateY(2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .radio-button.yes {
+      background-color: green;
+      color: white;
+    }
+
+    .radio-button.no {
+      background-color: red;
+      color: white;
+    }
+
+    .radio-button.yes.selected {
+  background-color: darkgreen;
+  color: white;
+}
+
+.radio-button.no.selected {
+  background-color: darkred;
+  color: white;
+}
+
+    #message {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    input[type="submit"] {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    function selectRadioButton(button, groupName) {
+      var buttons = document.getElementsByName(groupName);
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("selected");
+      }
+      button.classList.add("selected");
+    }
+
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      // Hide the form questions
+      var formElement = document.getElementById("googleForm");
+      formElement.style.display = "none";
+
+      // Display a custom message
+      var messageElement = document.getElementById("message");
+      messageElement.textContent = "Thank you for your submission!";
+
+      // Optional: You can perform additional actions or validations here
+
+      // Submit the form asynchronously using JavaScript
+      var form = document.getElementById("googleForm");
+      var formData = new FormData(form);
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", form.action);
+      xhr.send(formData);
+
+      // Refresh the page after 1.5 seconds
+      setTimeout(function() {
+        location.reload();
+      }, 1500);
+    }
+  </script>
+</head>
+<body>
+  <form id="googleForm" action="https://docs.google.com/forms/d/e/1FAIpQLScwX2Yyx-uoblYck3KiuU7Zl4Nl4Asftwv5hg70lWItTdrX0g/formResponse" method="POST">
+    <div>
+      <label for="category"><b>Please log incoming call to the category they best fit:</b></label>
+      <br>
+      <div class="radio-button-group">
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Security access call<input type="radio" name="entry.280538133" value="Security access call"></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Transfer to patient<input type="radio" name="entry.280538133" value="Transfer to patient"></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Transfer to staff extension<input type="radio" name="entry.280538133" value="Transfer to staff extension"></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Request to page doctor<input type="radio" name="entry.280538133" value="Request to page doctor"></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">General questions to information desk<input type="radio" name="entry.280538133" value="General questions to information desk"></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Internal Service Request (IT, environmental, facilities, security, etc.)<input type="radio" name="entry.280538133" value="Internal Service Request (IT, environmental, facilities, security, etc.)"></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Outside request for clinical information - transfer to relevant dept.<input type="radio" name="entry.280538133" value="Outside request for clinical information - transfer to relevant dept."></label>
+        <label class="radio-button" onclick="selectRadioButton(this, 'category')">Outside request for clinical service - transfer to relevant dept.<input type="radio" name="entry.280538133" value="Outside request for clinical service - transfer to relevant dept."></label>
+      </div>
+    </div>
+    <br>
+    <div>
+      <label for="needs_met"><b>Do you feel the callers' needs were met?</b></label>
+      <br>
+      <div class="radio-button-group">
+        <label class="radio-button yes" onclick="selectRadioButton(this, 'needs_met')">Yes<input type="radio" name="entry.2115929458" value="Yes"></label>
+        <label class="radio-button no" onclick="selectRadioButton(this, 'needs_met')">No<input type="radio" name="entry.2115929458" value="No"></label>
+      </div>
+    </div>
+    <br>
+    <input type="submit" value="Submit" onclick="submitForm(event)">
+  </form>
+
+  <div id="message"></div>
+</body>
+</html>
+
